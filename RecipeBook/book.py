@@ -1,28 +1,37 @@
 from .recipe import Recipe
+from logger import logger
+
+
+log = logger.getLogger(__name__)
 
 
 class RecipeBook:
 
     def __init__(self):
-        pass
+        self._recipes = []
 
-    def _loadRecipes(self):
-        pass
+    def loadRecipes(self):
+        self._readRecipeFile()
 
     def _readRecipeFile(self):
         pass
 
-    def createRecipe(self, args):
-        return Recipe(args)
+    def addRecipe(self, recipe):
+        self._recipes.append(recipe)
+        log.debug(f'Рецепт {recipe.name} добавлен в книгу')
 
-    def deleteRecipe(self):
-        pass
+    def deleteRecipeByID(self, _id):
+        del self._recipes[_id]
 
-    def getRecipeByRecipeId(self, _id):
-        pass
+    def getRecipeByID(self, _id):
+        return self._recipes[_id]
 
-    def viewRecipes(self): # or Recipe._view
-        pass
+    # для тестов
+    def viewRecipesInfo(self):
+        for recipe in self._recipes:
+            print(recipe.name, '\t' + 'ingredients:', sep='\n')
+            for ingredient in recipe.ingredients:
+                print('\t' * 2 + ingredient.name)
 
 
 g_RecipeBook = RecipeBook()

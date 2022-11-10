@@ -1,15 +1,25 @@
+from logger import logger
+
+
+log = logger.getLogger(__name__)
+
+
 class Ingredient:
 
-    def __init__(self, args):
-        """args - json format:
-            {
-                'id': id,
-                'name': name,
-                'amount': amount,
-                'measure': measure
-            }
-        """
-        self._id = args.get('id')
-        self._name = args.get('name')
-        self._amount = args.get('amount')
-        self._measure = args.get('measure')
+    def __init__(self, name=None, amount=None, measure=None):
+        self._name = name
+        self._amount = amount
+        self._measure = measure
+        log.debug(f'Ингредиент {self._name} был создан')
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def amount(self):
+        return self._amount
+
+    @property
+    def measure(self):
+        return self._measure
