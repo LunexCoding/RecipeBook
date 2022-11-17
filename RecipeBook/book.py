@@ -1,5 +1,7 @@
-from .recipe import Recipe
+from pathlib import Path
 from logger import logger
+from .recipe import Recipe
+from jsonTools import JsonTools
 
 
 log = logger.getLogger(__name__)
@@ -16,22 +18,20 @@ class RecipeBook:
     def _readRecipeFile(self):
         pass
 
+    def writeRecipeFile(self, _id):
+        with Path(f"./data/recipes/{_id}.json").open('w', encoding='utf-8') as file:
+            JsonTools.jsonWrite(self._recipes[_id], file)
+
     def addRecipe(self, recipe):
         self._recipes.append(recipe)
-        log.debug(f'Рецепт {recipe.name} добавлен в книгу')
+        log.debug(f'Рецепт <{recipe.name}> добавлен в книгу')
 
     def deleteRecipeByID(self, _id):
         del self._recipes[_id]
+        log.debug(f'Рецепт {self._recipes[_id].name} с ID {_id} был удален из книги')
 
     def getRecipeByID(self, _id):
         return self._recipes[_id]
-
-    # для тестов
-    def viewRecipesInfo(self):
-        for recipe in self._recipes:
-            print(recipe.name, '\t' + 'ingredients:', sep='\n')
-            for ingredient in recipe.ingredients:
-                print('\t' * 2 + ingredient.name)
 
 
 g_RecipeBook = RecipeBook()
