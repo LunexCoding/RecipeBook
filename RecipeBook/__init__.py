@@ -1,3 +1,3 @@
 from .recipe import Recipe
-from .ingredient import Ingredient
+from RecipeBook import book
 from .book import g_RecipeBook

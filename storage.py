@@ -26,16 +26,24 @@ class Storage:
         with STORAGE_FILE.open('w', encoding='utf-8') as file:
             JsonTools.jsonWrite(self._products, file)
 
-    def addProduct(self, product, amount):
-        self._products[product] = amount
-        log.debug(f'Продукт <{g_ingredientsDB.getIngredientByID(product).name}> был добавлен в хранилище')
+    def addProduct(self, productID, amount):
+        if productID in self._products:
+            oldAmout = self._products[productID]
+            self._products[productID] = oldAmout + amount
+            log.debug(f'Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<{productID}> изменил количество с {oldAmout} на {self._products[productID]}')
+        else:
+            self._products[productID] = amount
+            log.debug(f'Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<{productID}> добавлен в хранилище')
 
-    def getProductByID(self, _id):
-        return g_ingredientsDB.getIngredientByID(_id)
+    def getProductIDByID(self, productID):
+        return g_ingredientsDB.getIngredientByID(productID)
 
-    def deleteProductByID(self, _id):
-        del self._products[_id]
-        log.debug(f'Продукт <{self.getProductByID(_id).name}> с ID<{_id}> был удален из хранилище')
+    def deleteProductByID(self, productID):
+        del self._products[productID]
+        log.debug(f'Продукт <{self.getProductIDByID(productID).name}> с ID<{productID}> был удален из хранилище')
 
+    @property
+    def products(self):
+        return self._products
 
 g_storage = Storage()

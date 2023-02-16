@@ -1,8 +1,12 @@
+from pathlib import Path
 from Logger import Logger
 
 
-logger = Logger()
-logger.createLog(filename='log.md')
-with open('logs/log.md', 'w') as file:
-    file.write('```python\n')
+FILENAME = "log.md"
+DIR = Path("logs")
 
+
+logger = Logger()
+logger.createLog(DIR, FILENAME)
+with open(Path(DIR / FILENAME), "w") as file:
+    file.write('```python\n')

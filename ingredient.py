@@ -9,6 +9,7 @@ class Ingredient:
     def __init__(self, name=None, measure=None):
         self._name = name
         self._measure = measure
+        log.debug(f"Ингредиент <{self._name}> создан")
 
     @property
     def name(self):
