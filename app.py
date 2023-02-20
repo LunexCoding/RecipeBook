@@ -16,14 +16,11 @@ class App:
             g_storage.loadProducts()
             g_RecipeBook.loadRecipes()
             g_RecipeBook.filtration()
-            g_RecipeBook.changeFilter('byName')
-            g_RecipeBook.filtration()
-            g_RecipeBook.changeFilter('byFavorite')
-            g_RecipeBook.filtration()
+            g_RecipeBook.sorting()
             g_RecipeBook.changeFilter('hasIngridients')
+            g_RecipeBook.changeSorting('byName')
             g_RecipeBook.filtration()
-            g_RecipeBook.changeFilter('byRating')
-            g_RecipeBook.filtration()
+
         except IndexError:
             g_IDGenerator.loadLastIngredientID()
 

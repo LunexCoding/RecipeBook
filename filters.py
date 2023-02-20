@@ -10,16 +10,6 @@ class BaseFilter:
         return True
 
 
-class FilterByName(BaseFilter):
-    def call(self, recipes):
-        return dict(sorted(recipes.items(), key=lambda x: x[1].name, reverse=True))
-
-
-class FilterByRating(BaseFilter):
-    def call(self, recipes):
-        return dict(sorted(recipes.items(), key=lambda x: x[1].rating, reverse=True))
-
-
 class FilterByFavorite(BaseFilter):
     def call(self, recipe):
         return True if recipe.isFavorite is True else False

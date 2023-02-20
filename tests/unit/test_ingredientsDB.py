@@ -12,32 +12,25 @@ class TestIngredientsDB(unittest.TestCase):
         cls._ingredientsDB = IngredientsDatabase()
         cls._fileSystem = FileSystem()
 
+        cls._ingredient1 = Ingredient(
+            name='Tea',
+            measure='kg'
+        )
+        cls._ingredient2 = Ingredient(
+                name='Meat',
+                measure='kg'
+        )
 
     def test_addIngredientToDB(self):
-        self._ingredientsDB.addIngredientToDB(
-            Ingredient(
-                name='Tea',
-                measure='kg'
-            )
-        )
+        self._ingredientsDB.addIngredientToDB(self._ingredient1)
         ingredientID = [ingredientID for ingredientID, ingredient in self._ingredientsDB.ingredients.items() if ingredient.name == 'Tea']
         self.assertIn('Tea', [ingredient.name for ingredient in self._ingredientsDB.ingredients.values()])
         self._ingredientsDB.deleteIngredientByID(*ingredientID)
         self.assertNotIn(*ingredientID, self._ingredientsDB.ingredients)
 
     def test_addDuplicateIngredientToDB(self):
-        self._ingredientsDB.addIngredientToDB(
-            Ingredient(
-                name='Meat',
-                measure='kg'
-            )
-        )
-        self._ingredientsDB.addIngredientToDB(
-            Ingredient(
-                name='Meat',
-                measure='kg'
-            )
-        )
+        self._ingredientsDB.addIngredientToDB(self._ingredient2)
+        self._ingredientsDB.addIngredientToDB(self._ingredient2)
         self.assertEqual(self._ingredientsDB.ingredients[1].name, 'Meat')
         self.assertNotIn(2, self._ingredientsDB.ingredients)
         self._ingredientsDB.deleteIngredientByID(1)

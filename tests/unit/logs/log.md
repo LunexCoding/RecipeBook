@@ -1,16 +1,10 @@
 ```python
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Meat> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Meat> добавлен в базу
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Meat> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Meat> с ID<1> удален из базы
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Tea> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Tea> добавлен в базу
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Tea> с ID<2> удален из базы
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Salt> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Salt> добавлен в базу
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Apple> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Ингредиент <Apple> добавлен в базу
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Начинается загрузка ингредиентов
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Salt> создан
-[16-Feb-23 22:59] -> ingredient -> [DEBUG]: Ингредиент <Apple> создан
-[16-Feb-23 22:59] -> ingredientsDB -> [DEBUG]: Загрузка ингредиентов завершена
+[21-Feb-23 01:02] -> RecipeBook.recipe -> [DEBUG]: Рецепт <Капустница> создан
+[21-Feb-23 01:02] -> RecipeBook.recipe -> [DEBUG]: Рецепт <Bread> создан
+[21-Feb-23 01:02] -> RecipeBook.book -> [DEBUG]: Рецепт <Капустница> добавлен в книгу
+[21-Feb-23 01:02] -> RecipeBook.book -> [WARNING]: Рецепт <Капустница> уже есть в книге
+[21-Feb-23 01:02] -> RecipeBook.book -> [DEBUG]: Рецепт <Bread> добавлен в книгу
+[21-Feb-23 01:02] -> RecipeBook.book -> [DEBUG]: Рецепт Капустница с ID 1 был удален из книги
+[21-Feb-23 01:02] -> test_book -> [DEBUG]: {2: <RecipeBook.recipe.Recipe object at 0x00000211D474F850>}
+[21-Feb-23 01:02] -> RecipeBook.book -> [DEBUG]: Рецепт <Капустница> добавлен в книгу
+[21-Feb-23 01:02] -> test_book -> [DEBUG]: ['2.json', '3.json']

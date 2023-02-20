@@ -3,7 +3,8 @@ from logger import logger
 from jsonTools import JsonTools
 from IDGenerator import g_IDGenerator
 from RecipeBook import Recipe
-from filters import BaseFilter, FilterByName, FilterByFavorite, FilterByRating, HasAllIngredientsFilter
+from filters import BaseFilter, FilterByFavorite, HasAllIngredientsFilter
+from sortings import BaseSorting, SortingByName, SortingByRating
 
 
 RECIPES_DIRECTORY = Path("data/recipes")
@@ -18,12 +19,16 @@ class _RecipeBook:
         self._lastLoadedRecipeID = None
         self._filters = {
             'all': BaseFilter,
-            'byName': FilterByName,
             'byFavorite': FilterByFavorite,
-            'byRating': FilterByRating,
             'hasIngridients': HasAllIngredientsFilter,
         }
+        self._sortings = {
+            'all': BaseSorting,
+            'byName': SortingByName,
+            'byRating': SortingByRating,
+        }
         self._activeFilter = self._filters['all']()
+        self._activeSorting = self._sortings['all']()
 
     def loadRecipes(self):
         if sorted(RECIPES_DIRECTORY.glob('*.json')):
@@ -40,7 +45,7 @@ class _RecipeBook:
                 self.addRecipe(
                     Recipe(
                         name=data['_name'],
-                        ingredients=data["_ingredients"],
+                        ingredients=data['_ingredients'],
                         cookingSteps=data['_cookingSteps'],
                         description=data['_description'],
                         isFavorite=data['_isFavorite'],
@@ -80,15 +85,19 @@ class _RecipeBook:
 
     def filtration(self):
         log.debug(f'Начата фильтрация {self._activeFilter.__class__}')
-        if isinstance(self._activeFilter, (FilterByName, FilterByRating)):
-            self._recipes = self._activeFilter.call(self._recipes)
-        else:
-            for recipe in self._recipes.values():
-                if self._activeFilter.call(recipe):
-                    self.showRecipe(recipe)
+        for recipe in self._recipes.values():
+            if self._activeFilter.call(recipe):
+                self.showRecipe(recipe)
 
     def changeFilter(self, filter):
         self._activeFilter = self._filters[filter]()
+
+    def sorting(self):
+        log.debug(f'Сортировка {self._activeSorting.__class__}')
+        self._recipes = self._activeSorting.call(self._recipes)
+
+    def changeSorting(self, sorting):
+        self._activeSorting = self._sortings[sorting]()
 
     def showRecipe(self, recipe):
         # Temporary stub -> GUI
