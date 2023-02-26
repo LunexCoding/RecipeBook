@@ -1,13 +1,14 @@
 import unittest
-from pathlib import Path
-from RecipeBook import Recipe, book
+from RecipeBook import book
 from RecipeBook.book import _RecipeBook
+from RecipeBook.recipe import Recipe
 from fileSystem import FileSystem
-from logger import logger
-from filters import BaseFilter, FilterByFavorite, HasAllIngredientsFilter
+from filters import _BaseFilter, _FilterByFavorite, _HasAllIngredientsFilter
 
 
-log = logger.getLogger(__name__)
+_FIXTURES_DIRECTORY = "fixtures"
+_RECIPES_DIRECTORY = f"{_FIXTURES_DIRECTORY}/recipes"
+_FILE_SUFFIX = ".json"
 
 
 class TestRecipeBook(unittest.TestCase):
@@ -15,7 +16,7 @@ class TestRecipeBook(unittest.TestCase):
     def setUpClass(cls):
         cls._book = _RecipeBook()
         cls._fileSystem = FileSystem()
-        cls._fileSystem.initTree([Path("fixtures/recipes")])
+        cls._fileSystem.makeDirs(_RECIPES_DIRECTORY)
 
         cls._recipe1 = Recipe(
                 name="Капустница",
@@ -54,37 +55,47 @@ class TestRecipeBook(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls._fileSystem.removeTree("fixtures/recipes")
+        cls._fileSystem.removeTree(_FIXTURES_DIRECTORY)
+
+    @classmethod
+    def getRecipeIDByRecipe(cls, recipe):
+        return "".join([recipeID for recipeID, recipeObj in cls._book.recipes.items() if recipeObj.name == recipe.name])
 
     def test_addRecipe(self):
         self._book.addRecipe(self._recipe1)
         self._book.addRecipe(self._recipe1)
         self._book.addRecipe(self._recipe2)
-        self.assertEqual(self._book.recipes[1].name, 'Капустница')
-        self.assertEqual(self._book.recipes[2].name, 'Bread')
+        recipe1ID = self.getRecipeIDByRecipe(self._recipe1)
+        recipe2ID = self.getRecipeIDByRecipe(self._recipe2)
+        self.assertIn(recipe1ID, self._book.recipes)
+        self.assertIn(recipe2ID, self._book.recipes)
+        self.assertEqual(self._book.recipes[recipe1ID].name, "Капустница")
+        self.assertEqual(self._book.recipes[recipe2ID].name, "Bread")
 
     def test_changeFilter(self):
         self._book.changeFilter("byFavorite")
-        self.assertIsInstance(self._book._activeFilter, FilterByFavorite)
+        self.assertIsInstance(self._book._activeFilter, _FilterByFavorite)
         self._book.changeFilter("hasIngridients")
-        self.assertIsInstance(self._book._activeFilter, HasAllIngredientsFilter)
+        self.assertIsInstance(self._book._activeFilter, _HasAllIngredientsFilter)
         self._book.changeFilter("all")
-        self.assertIsInstance(self._book._activeFilter, BaseFilter)
+        self.assertIsInstance(self._book._activeFilter, _BaseFilter)
 
     def test_deleteRecipeByID(self):
-        self._book.deleteRecipeByID(1)
-        log.debug(self._book.recipes)
-        self.assertNotIn(1, self._book.recipes)
-        self._book.addRecipe(self._recipe1)
+        recipeID = self.getRecipeIDByRecipe(self._recipe1)
+        self._book.deleteRecipeByID(recipeID)
+        self.assertNotIn(recipeID, self._book.recipes)
 
-    def test_writeRecipesFiles(self):
-        book.RECIPES_DIRECTORY = Path("fixtures/recipes")
+    def test_writeRecipesFilesAndLoadRecipes(self):
+        recipeID = self.getRecipeIDByRecipe(self._recipe2)
+        book._RECIPES_DIRECTORY = _RECIPES_DIRECTORY
         self._book.writeRecipesFiles()
-        log.debug(self._fileSystem.getFileNameWithSuffix(self._fileSystem.listDir(book.RECIPES_DIRECTORY)))
-        self.assertTrue(set(["2.json", "3.json"]).issubset(self._fileSystem.getFileNameWithSuffix(self._fileSystem.listDir(book.RECIPES_DIRECTORY))))
-
-    def test_loadRecipes(self):
+        self.assertTrue(self._fileSystem.exists(f"{_RECIPES_DIRECTORY}/{recipeID}{_FILE_SUFFIX}"))
+        self._book._recipes = {}
         self._book.loadRecipes()
+        self.assertTrue(len(self._book.recipes) != 0)
+        self.assertIn(recipeID, self._book.recipes)
+        self.assertEqual(self._book.recipes[recipeID].name, "Bread")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -1,46 +1,47 @@
-from pathlib import Path
 from logger import logger
-from jsonTools import JsonTools
 from ingredientsDB import g_ingredientsDB
+from fileSystem import fileSystem
 
 
-log = logger.getLogger(__name__)
-STORAGE_FILE = Path('data/storage.json')
+_log = logger.getLogger(__name__)
+_STORAGE_FILE = "data/storage.json"
 
 
 class Storage:
-
     def __init__(self):
         self._products = {}
 
     def loadProducts(self):
-        with STORAGE_FILE.open(encoding='utf-8') as file:
-            loadedProduct = JsonTools.jsonLoad(file) if STORAGE_FILE.stat().st_size != 0 else {}
-            if loadedProduct:
-                log.debug(f"Начинается заполнение хранилища")
-                for _id, amount in loadedProduct.items():
-                    self.addProduct(int(_id), amount)
-                log.debug(f"Заполнение хранилища завершено")
+        try:
+            loadedProduct = fileSystem.readJson(_STORAGE_FILE)
+            _log.debug(f"Начинается заполнение хранилища")
+            for productID, amount in loadedProduct.items():
+                self.addProduct(productID, amount)
+            _log.debug(f"Заполнение хранилища завершено")
+        except:
+            _log.error("Не удалось загрузить продукты в хранилище")
 
-    def updateFile(self):
-        with STORAGE_FILE.open('w', encoding='utf-8') as file:
-            JsonTools.jsonWrite(self._products, file)
+    def writeStorageFile(self):
+        fileSystem.writeJson(_STORAGE_FILE, self._products)
 
     def addProduct(self, productID, amount):
         if productID in self._products:
             oldAmout = self._products[productID]
             self._products[productID] = oldAmout + amount
-            log.debug(f'Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<{productID}> изменил количество с {oldAmout} на {self._products[productID]}')
+            _log.debug(f"Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<'{productID}'> изменил количество с {oldAmout} на {self._products[productID]}")
         else:
             self._products[productID] = amount
-            log.debug(f'Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<{productID}> добавлен в хранилище')
+            _log.debug(f"Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<'{productID}'> добавлен в хранилище")
 
-    def getProductIDByID(self, productID):
+    def getProductByID(self, productID):
         return g_ingredientsDB.getIngredientByID(productID)
+
+    def getProductAmountByID(self, productID):
+        return self._products[productID]
 
     def deleteProductByID(self, productID):
         del self._products[productID]
-        log.debug(f'Продукт <{self.getProductIDByID(productID).name}> с ID<{productID}> был удален из хранилище')
+        _log.debug(f"Продукт <{self.getProductByID(productID).name}> с ID<'{productID}'> был удален из хранилище")
 
     @property
     def products(self):
