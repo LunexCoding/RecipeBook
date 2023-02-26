@@ -1,15 +1,14 @@
 from logger import logger
 
 
-log = logger.getLogger(__name__)
+_log = logger.getLogger(__name__)
 
 
 class Ingredient:
-
-    def __init__(self, name=None, measure=None):
+    def __init__(self, name="Name", measure="Measure"):
         self._name = name
         self._measure = measure
-        log.debug(f"Ингредиент <{self._name}> создан")
+        _log.debug(f"Ингредиент <{self._name}> создан")
 
     @property
     def name(self):

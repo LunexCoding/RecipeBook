@@ -5,8 +5,7 @@ log = logger.getLogger(__name__)
 
 
 class Recipe:
-
-    def __init__(self, name=None, ingredients=None, cookingSteps=None, description=None, isFavorite=False, rating=0):
+    def __init__(self, name="Recipe", ingredients=None, cookingSteps="Steps", description="Description", isFavorite=False, rating=0):
         self._name = name
         self._ingredients = ingredients if ingredients is not None else {}
         self._cookingSteps = cookingSteps

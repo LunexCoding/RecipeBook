@@ -1,21 +1,17 @@
 from storage import g_storage
-from logger import logger
 
 
-log = logger.getLogger(__name__)
-
-
-class BaseFilter:
+class _BaseFilter:
     def call(self, recipe):
         return True
 
 
-class FilterByFavorite(BaseFilter):
+class _FilterByFavorite(_BaseFilter):
     def call(self, recipe):
         return True if recipe.isFavorite is True else False
 
 
-class HasAllIngredientsFilter(BaseFilter):
+class _HasAllIngredientsFilter(_BaseFilter):
     def call(self, recipe):
         listBool = []
         for ingredientID, ingredientAmount in recipe.ingredients.items():
@@ -25,3 +21,8 @@ class HasAllIngredientsFilter(BaseFilter):
                 else:
                     listBool.append(False)
         return True if all(listBool) else False
+
+
+baseFilter = _BaseFilter()
+filterByFavorite = _FilterByFavorite()
+filterHasAllIngredients = _HasAllIngredientsFilter()
