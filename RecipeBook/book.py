@@ -55,6 +55,7 @@ class _RecipeBook:
     def _addRecipe(self, recipeID, recipe):
         if self._checkRecipeInBook(recipe.name) is False:
             recipeIngredients = {}
+            print(recipeID, recipe.ingredients)
             for ingredientID, amount in recipe.ingredients.items():
                 recipeIngredients[ingredientID] = amount
             recipe.ingredients = recipeIngredients

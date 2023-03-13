@@ -2,15 +2,18 @@ from logger import logger
 from ingredient import Ingredient
 from IDGenerator import g_IDGenerator
 from fileSystem import fileSystem
+from event import Event
 
 
 _log = logger.getLogger(__name__)
 _DATABASE_FILE = "data/ingredientsDB.json"
 
 
-class IngredientsDatabase:
+class _IngredientsDatabase:
     def __init__(self):
         self._ingredients = {}
+        self.onIngredientAdded = Event()
+        self.onIngredientDeleted = Event()
 
     def loadIngredients(self):
         try:
@@ -29,38 +32,48 @@ class IngredientsDatabase:
             _log.error("Не удалось загрузить ингредиенты в базу")
 
     def _addIngredient(self, ingredientID, ingredient):
-        if self._checkIngredientInDB(ingredient) is False:
+        if self.checkIngredientInDB(ingredient) is False:
             self._ingredients[ingredientID] = ingredient
             _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> загружен в базу")
+            self.onIngredientAdded.trigger(ingredientID, ingredient)
+            return ingredientID
         else:
             _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> уже находится в базе")
 
     def addIngredientToDB(self, ingredient):
-        if self._checkIngredientInDB(ingredient) is False:
-            self._ingredients[g_IDGenerator.getID()] = ingredient
-            _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{self._getIngredientID(ingredient)}'> добавлен в базу")
+        if not self.checkIngredientInDB(ingredient):
+            ingredientID = g_IDGenerator.getID()
+            self._ingredients[ingredientID] = ingredient
+            _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> добавлен в базу")
+            self.onIngredientAdded.trigger(ingredientID, ingredient)
+            return ingredientID
         else:
             _log.warning(f"Ингредиент <{ingredient.name}> с ID<'{self._getIngredientID(ingredient)}'> уже находится в базе")
 
     def _getIngredientID(self, ingredient):
         return "".join([ingredientID for ingredientID, ingredientObj in self._ingredients.items() if ingredientObj.name == ingredient.name])
 
-    def _checkIngredientInDB(self, ingredient):
-        return True if ((ingredient.name, ingredient.measure) in [(ingredientDB.name, ingredientDB.measure) for ingredientDB in self._ingredients.values()]) else False
+    def checkIngredientInDB(self, ingredient):
+       return True if ((ingredient.name, ingredient.measure) in [(ingredientDB.name, ingredientDB.measure) for ingredientDB in self._ingredients.values()]) else False
 
     def writeDBFile(self):
         fileSystem.writeJson(_DATABASE_FILE, self._ingredients)
 
     def getIngredientByID(self, ingredientID):
-        return self._ingredients[ingredientID]
+        return self._ingredients.get(ingredientID)
+
+    def getIngredientID(self, ingredient):
+        return "".join([ingredientID for ingredientID, ingredientObj in self._ingredients.items() if (ingredientObj.name == ingredient.name and ingredientObj.measure == ingredient.measure)])
 
     def deleteIngredientByID(self, ingredientID):
-        _log.debug(f"Ингредиент <{self.getIngredientByID(ingredientID).name}> с ID<'{ingredientID}'> удален из базы")
-        del self._ingredients[ingredientID]
+        if ingredientID in self._ingredients:
+            _log.debug(f"Ингредиент <{self.getIngredientByID(ingredientID).name}> с ID<'{ingredientID}'> удален из базы")
+            del self._ingredients[ingredientID]
+            self.onIngredientDeleted.trigger()
 
     @property
     def ingredients(self):
         return self._ingredients
 
 
-g_ingredientsDB = IngredientsDatabase()
+g_ingredientsDB = _IngredientsDatabase()
