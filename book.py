@@ -61,13 +61,16 @@ class _RecipeBook:
             recipe.ingredients = recipeIngredients
             self._recipes[recipeID] = recipe
             _log.debug(f"Рецепт <{recipe.name}> с ID<{recipeID}> загружен в книгу")
+            return recipeID
         else:
             _log.warning(f"Рецепт <{recipe.name}> с ID<{recipeID}> уже есть в книге")
 
     def addRecipe(self, recipe):
         if self._checkRecipeInBook(recipe.name) is False:
-            self._recipes[g_IDGenerator.getID()] = recipe
+            recipeID = g_IDGenerator.getID()
+            self._recipes[recipeID] = recipe
             _log.debug(f"Рецепт <{recipe.name}> с ID<{self._getRecipeID(recipe)}> добавлен в книгу")
+            return recipeID
         else:
             _log.warning(f"Рецепт <{recipe.name}> с ID<{self._getRecipeID(recipe)}>  уже есть в книге")
 

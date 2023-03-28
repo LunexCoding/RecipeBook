@@ -1,7 +1,7 @@
 import unittest
-from RecipeBook import book
-from RecipeBook.book import _RecipeBook
-from RecipeBook.recipe import Recipe
+import book
+from book import _RecipeBook
+from recipe import Recipe
 from fileSystem import FileSystem
 from filters import _BaseFilter, _FilterByFavorite, _HasAllIngredientsFilter
 

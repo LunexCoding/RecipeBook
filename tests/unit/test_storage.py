@@ -61,7 +61,7 @@ class TestStorage(unittest.TestCase):
     def getIngredientIDByIngredient(cls, ingredient):
         return "".join([ingredientID for ingredientID, ingredientObj in cls._ingredientsDB.ingredients.items() if (ingredientObj.name == ingredient.name and ingredientObj.measure == ingredient.measure)])
 
-    @patch.object(ingredientsDB.IngredientsDatabase, "getIngredientByID")
+    @patch.object(ingredientsDB._IngredientsDatabase, "getIngredientByID")
     def test_addProduct(self, mockGetIngredientByID):
         mockGetIngredientByID.return_value = self._ingredient1
         self._storage.addProduct(self._ingredient1ID, self._amount1)
@@ -86,13 +86,13 @@ class TestStorage(unittest.TestCase):
         self.assertEqual(self._storage.getProductAmountByID(self._ingredient2ID), self._amount2AfterDuplicate)
         self.assertEqual(self._storage.getProductAmountByID(self._ingredient3ID), self._amount3AfterDuplicate)
 
-    @patch.object(ingredientsDB.IngredientsDatabase, "getIngredientByID")
+    @patch.object(ingredientsDB._IngredientsDatabase, "getIngredientByID")
     def test_deleteProductByID(self, mockGetIngredientByID):
         mockGetIngredientByID.return_value = self._ingredient1
         self._storage.deleteProductByID(self._ingredient1ID)
         self.assertNotIn(self._ingredient1ID, self._storage.products)
 
-    @patch.object(ingredientsDB.IngredientsDatabase, "getIngredientByID")
+    @patch.object(ingredientsDB._IngredientsDatabase, "getIngredientByID")
     def test_writeAndLoadStorageFile(self, mockGetIngredientByID):
         storage._STORAGE_FILE = _STORAGE_FILE
         self._storage.writeStorageFile()

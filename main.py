@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         g_ingredientsDB.onIngredientAdded.register(self.__ingredientAdded)
         g_ingredientsDB.onIngredientDeleted.register(self.__ingredientDeleted)
         g_storage.onProductAdded.register(self.__addProductToPage)
-        g_storage.onProductUpdate.register(self.__updateProduct)
+        g_storage.onProductUpdated.register(self.__updateProduct)
         g_storage.onProductDeleted.register(self.__deleteProduct)
 
         # show / hide some elements

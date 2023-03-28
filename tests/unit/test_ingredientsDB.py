@@ -1,6 +1,6 @@
 import unittest
 import ingredientsDB
-from ingredientsDB import IngredientsDatabase
+from ingredientsDB import _IngredientsDatabase
 from ingredient import Ingredient
 from fileSystem import FileSystem
 
@@ -12,7 +12,7 @@ _DATABASE_FILE = f"{_FIXTURES_DIRECTORY}/ingredientsDB.json"
 class TestIngredientsDB(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls._ingredientsDB = IngredientsDatabase()
+        cls._ingredientsDB = _IngredientsDatabase()
         cls._fileSystem = FileSystem()
         cls._fileSystem.makeDir(_FIXTURES_DIRECTORY)
 

@@ -2,6 +2,7 @@ from PySide2.QtWidgets import QWidget
 from PySide2.QtCore import Signal
 
 from forms.ui_elementProduct import Ui_elementProduct
+from storage import g_storage
 
 
 class ElementProduct(QWidget):
@@ -12,6 +13,7 @@ class ElementProduct(QWidget):
 
     def __init__(self, widgetID, ingredient, amount, parent=None):
         super(ElementProduct, self).__init__(parent)
+        g_storage.onProductUpdated.register(self._onProductAdded)
         self.ui = Ui_elementProduct()
         self.ui.setupUi(self)
         self._widgetID = widgetID
@@ -28,7 +30,6 @@ class ElementProduct(QWidget):
         self.ui.cancelBtn.clicked.connect(self._closeEdit)
         self._closeEdit()
 
-
     def validate(self):
         amount = self.ui.inputAmount.text()
         if not amount:
@@ -44,10 +45,11 @@ class ElementProduct(QWidget):
     def delete(self):
         self._delete.emit(self._widgetID)
 
-    def updateAmount(self, amount):
-        self._amount = amount
-        self.ui.amount.setText(str(self._amount))
-        self._save.emit(self._widgetID, self._amount)
+    def _onProductAdded(self, productID, amount):
+        print("product added", productID)
+        print(amount)
+        if productID == self._widgetID:
+            self.ui.amount.setText(str(amount))
 
     def saveChanges(self):
         if self.validate():

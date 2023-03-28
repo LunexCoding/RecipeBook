@@ -32,7 +32,7 @@ class _IngredientsDatabase:
             _log.error("Не удалось загрузить ингредиенты в базу")
 
     def _addIngredient(self, ingredientID, ingredient):
-        if self.checkIngredientInDB(ingredient) is False:
+        if self._checkIngredientInDB(ingredient) is False:
             self._ingredients[ingredientID] = ingredient
             _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> загружен в базу")
             self.onIngredientAdded.trigger(ingredientID, ingredient)
@@ -41,7 +41,7 @@ class _IngredientsDatabase:
             _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> уже находится в базе")
 
     def addIngredientToDB(self, ingredient):
-        if not self.checkIngredientInDB(ingredient):
+        if not self._checkIngredientInDB(ingredient):
             ingredientID = g_IDGenerator.getID()
             self._ingredients[ingredientID] = ingredient
             _log.debug(f"Ингредиент <{ingredient.name}> с ID<'{ingredientID}'> добавлен в базу")
@@ -50,10 +50,7 @@ class _IngredientsDatabase:
         else:
             _log.warning(f"Ингредиент <{ingredient.name}> с ID<'{self._getIngredientID(ingredient)}'> уже находится в базе")
 
-    def _getIngredientID(self, ingredient):
-        return "".join([ingredientID for ingredientID, ingredientObj in self._ingredients.items() if ingredientObj.name == ingredient.name])
-
-    def checkIngredientInDB(self, ingredient):
+    def _checkIngredientInDB(self, ingredient):
        return True if ((ingredient.name, ingredient.measure) in [(ingredientDB.name, ingredientDB.measure) for ingredientDB in self._ingredients.values()]) else False
 
     def writeDBFile(self):

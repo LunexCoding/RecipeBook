@@ -12,7 +12,7 @@ class Storage:
     def __init__(self):
         self._products = {}
         self.onProductAdded = Event()
-        self.onProductUpdate = Event()
+        self.onProductUpdated = Event()
         self.onProductDeleted = Event()
 
     def loadProducts(self):
@@ -33,7 +33,7 @@ class Storage:
             oldAmout = self._products[productID]
             self._products[productID] = oldAmout + amount
             _log.debug(f"Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<'{productID}'> изменил количество с {oldAmout} на {self._products[productID]}")
-            self.onProductUpdate.trigger(productID, oldAmout + amount)
+            self.onProductUpdated.trigger(productID, oldAmout + amount)
         else:
             self._products[productID] = amount
             _log.debug(f"Продукт <{g_ingredientsDB.getIngredientByID(productID).name}> с ID<'{productID}'> добавлен в хранилище")
