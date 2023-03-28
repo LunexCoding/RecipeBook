@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from jsonTools import JsonTools
-from fileSystemExceptions import (
+from .jsonTools import JsonTools
+from helpers.fileSystemExceptions import (
     IsNotEmptyException,
     PathExistsException,
     PathExistsAsFileException,
@@ -9,7 +9,7 @@ from fileSystemExceptions import (
     PathNotFoundException,
     IsNotDirectoryException
 )
-from customException import TypeException
+from helpers.customException import TypeException
 
 
 class FileSystem:

@@ -1,10 +1,10 @@
-from logger import logger
-from IDGenerator import g_IDGenerator
-from recipe import Recipe
+from helpers.logger import logger
+from helpers.IDGenerator import g_IDGenerator
+from entities.recipe import Recipe
 from filters import baseFilter, filterByFavorite, filterHasAllIngredients
 from sortings import baseSorting, sortingByName, sortingByRating
-from fileSystem import fileSystem
-from customException import TypeException
+from helpers.fileSystem import fileSystem
+from helpers.customException import TypeException
 
 
 _RECIPES_DIRECTORY = "data/recipes"

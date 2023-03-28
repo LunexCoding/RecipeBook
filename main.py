@@ -7,10 +7,10 @@ from widgets.flowLayout import FlowLayout
 from forms.ui_deleteIngredientDialog import DeleteIngredientDialog
 from widgets.addProductDialog import AddProductDialog
 
-from logger import logger
-from ingredient import Ingredient
-from ingredientsDB import g_ingredientsDB
-from storage import g_storage
+from helpers.logger import logger
+from entities.ingredient import Ingredient
+from DataStructures.ingredientsDB import g_ingredientsDB
+from DataStructures.storage import g_storage
 
 
 _log = logger.getLogger(__name__)

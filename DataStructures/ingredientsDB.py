@@ -1,12 +1,12 @@
-from logger import logger
-from ingredient import Ingredient
-from IDGenerator import g_IDGenerator
-from fileSystem import fileSystem
+from helpers.logger import logger
+from entities.ingredient import Ingredient
+from helpers.IDGenerator import g_IDGenerator
+from helpers.fileSystem import fileSystem
 from event import Event
 
 
 _log = logger.getLogger(__name__)
-_DATABASE_FILE = "data/ingredientsDB.json"
+_DATABASE_FILE = "../data/ingredientsDB.json"
 
 
 class _IngredientsDatabase:
@@ -48,7 +48,7 @@ class _IngredientsDatabase:
             self.onIngredientAdded.trigger(ingredientID, ingredient)
             return ingredientID
         else:
-            _log.warning(f"Ингредиент <{ingredient.name}> с ID<'{self._getIngredientID(ingredient)}'> уже находится в базе")
+            _log.warning(f"Ингредиент <{ingredient.name}> с ID<'{self.getIngredientID(ingredient)}'> уже находится в базе")
 
     def _checkIngredientInDB(self, ingredient):
        return True if ((ingredient.name, ingredient.measure) in [(ingredientDB.name, ingredientDB.measure) for ingredientDB in self._ingredients.values()]) else False

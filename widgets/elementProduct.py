@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QWidget
 from PySide2.QtCore import Signal
 
 from forms.ui_elementProduct import Ui_elementProduct
-from storage import g_storage
+from DataStructures.storage import g_storage
 
 
 class ElementProduct(QWidget):

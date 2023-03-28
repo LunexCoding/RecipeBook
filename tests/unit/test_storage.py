@@ -1,12 +1,10 @@
 import unittest
 from unittest.mock import patch, PropertyMock, Mock
-import storage
-from storage import Storage
-from ingredient import Ingredient
-from fileSystem import FileSystem
-from IDGenerator import g_IDGenerator
-import ingredientsDB
-
+from DataStructures.storage import Storage
+from entities.ingredient import Ingredient
+from helpers.fileSystem import FileSystem
+from helpers.IDGenerator import g_IDGenerator
+from DataStructures import ingredientsDB, storage
 
 _FIXTURES_DIRECTORY = "fixtures"
 _STORAGE_FILE = f"{_FIXTURES_DIRECTORY}/storage.json"

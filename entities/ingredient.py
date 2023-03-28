@@ -1,4 +1,4 @@
-from logger import logger
+from helpers.logger import logger
 
 
 _log = logger.getLogger(__name__)

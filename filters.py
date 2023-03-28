@@ -1,4 +1,4 @@
-from storage import g_storage
+from DataStructures.storage import g_storage
 
 
 class _BaseFilter:

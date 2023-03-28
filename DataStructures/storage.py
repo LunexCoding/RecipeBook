@@ -1,11 +1,11 @@
-from logger import logger
-from ingredientsDB import g_ingredientsDB
-from fileSystem import fileSystem
+from helpers.logger import logger
+from DataStructures.ingredientsDB import g_ingredientsDB
+from helpers.fileSystem import fileSystem
 from event import Event
 
 
 _log = logger.getLogger(__name__)
-_STORAGE_FILE = "data/storage.json"
+_STORAGE_FILE = "../data/storage.json"
 
 
 class Storage:

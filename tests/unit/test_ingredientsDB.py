@@ -1,8 +1,8 @@
 import unittest
-import ingredientsDB
-from ingredientsDB import _IngredientsDatabase
-from ingredient import Ingredient
-from fileSystem import FileSystem
+from DataStructures import ingredientsDB
+from DataStructures.ingredientsDB import _IngredientsDatabase
+from entities.ingredient import Ingredient
+from helpers.fileSystem import FileSystem
 
 
 _FIXTURES_DIRECTORY = "fixtures"
