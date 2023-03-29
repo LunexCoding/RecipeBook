@@ -96,10 +96,7 @@ class TestStorage(unittest.TestCase):
         self._storage.writeStorageFile()
         self.assertTrue(self._fileSystem.exists(_STORAGE_FILE))
         self._storage._products = {}
-        self._storage.loadProducts()  # проблема с логом (test/unit/logs/log.md) вместо имени ингредиента
-        # MagicMock name='getIngredientByID().name' id='2720856815824'>, чтобы хоть как-то противодействовать этому
-        # нужно перед загрузкой добавить mockGetIngredientByID.return_value = self._ingredient2, но это не совсем решает
-        # проблему. В лог пишутся все продукты с именем self._ingredient2 и с разными ID. Есть ли способ исправить это?
+        self._storage.loadProducts()
         mockGetIngredientByID.return_value = self._ingredient2
         self.assertIn(self._ingredient2ID, self._storage.products)
         mockGetIngredientByID.return_value = self._ingredient3
