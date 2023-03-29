@@ -1,8 +1,8 @@
 import unittest
-from RecipeBook import book
-from RecipeBook.book import _RecipeBook
-from RecipeBook.recipe import Recipe
-from fileSystem import FileSystem
+from DataStructures import book
+from DataStructures.book import _RecipeBook
+from entities.recipe import Recipe
+from helpers.fileSystem import FileSystem
 from filters import _BaseFilter, _FilterByFavorite, _HasAllIngredientsFilter
 
 

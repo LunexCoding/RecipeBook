@@ -1,10 +1,10 @@
-from logger import logger
-from IDGenerator import g_IDGenerator
-from RecipeBook.recipe import Recipe
+from helpers.logger import logger
+from helpers.IDGenerator import g_IDGenerator
+from entities.recipe import Recipe
 from filters import baseFilter, filterByFavorite, filterHasAllIngredients
 from sortings import baseSorting, sortingByName, sortingByRating
-from fileSystem import fileSystem
-from customException import TypeException
+from helpers.fileSystem import fileSystem
+from helpers.customException import TypeException
 
 
 _RECIPES_DIRECTORY = "data/recipes"
@@ -55,18 +55,22 @@ class _RecipeBook:
     def _addRecipe(self, recipeID, recipe):
         if self._checkRecipeInBook(recipe.name) is False:
             recipeIngredients = {}
+            print(recipeID, recipe.ingredients)
             for ingredientID, amount in recipe.ingredients.items():
                 recipeIngredients[ingredientID] = amount
             recipe.ingredients = recipeIngredients
             self._recipes[recipeID] = recipe
             _log.debug(f"Рецепт <{recipe.name}> с ID<{recipeID}> загружен в книгу")
+            return recipeID
         else:
             _log.warning(f"Рецепт <{recipe.name}> с ID<{recipeID}> уже есть в книге")
 
     def addRecipe(self, recipe):
         if self._checkRecipeInBook(recipe.name) is False:
-            self._recipes[g_IDGenerator.getID()] = recipe
+            recipeID = g_IDGenerator.getID()
+            self._recipes[recipeID] = recipe
             _log.debug(f"Рецепт <{recipe.name}> с ID<{self._getRecipeID(recipe)}> добавлен в книгу")
+            return recipeID
         else:
             _log.warning(f"Рецепт <{recipe.name}> с ID<{self._getRecipeID(recipe)}>  уже есть в книге")
 

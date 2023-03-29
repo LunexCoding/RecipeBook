@@ -1,8 +1,8 @@
 import unittest
-import ingredientsDB
-from ingredientsDB import IngredientsDatabase
-from ingredient import Ingredient
-from fileSystem import FileSystem
+from DataStructures import ingredientsDB
+from DataStructures.ingredientsDB import _IngredientsDatabase
+from entities.ingredient import Ingredient
+from helpers.fileSystem import FileSystem
 
 
 _FIXTURES_DIRECTORY = "fixtures"
@@ -12,7 +12,7 @@ _DATABASE_FILE = f"{_FIXTURES_DIRECTORY}/ingredientsDB.json"
 class TestIngredientsDB(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls._ingredientsDB = IngredientsDatabase()
+        cls._ingredientsDB = _IngredientsDatabase()
         cls._fileSystem = FileSystem()
         cls._fileSystem.makeDir(_FIXTURES_DIRECTORY)
 

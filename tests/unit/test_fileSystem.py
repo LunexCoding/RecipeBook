@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
-from fileSystem import FileSystem
-from fileSystemExceptions import (
+from helpers.fileSystem import FileSystem
+from helpers.fileSystemExceptions import (
     IsNotEmptyException,
     PathExistsException,
     PathExistsAsFileException,
@@ -9,7 +9,7 @@ from fileSystemExceptions import (
     PathNotFoundException,
     IsNotDirectoryException
 )
-from customException import TypeException
+from helpers.customException import TypeException
 
 
 _FIXTURES_DIRECTORY = Path("fixtures")

@@ -3,7 +3,7 @@ from Logger import Logger
 
 
 _FILENAME = "log.md"
-_DIR = Path("logs")
+_DIR = Path("../logs")
 
 
 logger = Logger()
