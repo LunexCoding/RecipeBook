@@ -1,0 +1,17 @@
+{
+    "_name": "rec",
+    "_ingredients": [
+        {
+            "_name": "ing1",
+            "_measure": "kg"
+        },
+        {
+            "_name": "ing2",
+            "_measure": "l"
+        }
+    ],
+    "_cookingSteps": "Steps",
+    "_description": "Description",
+    "_isFavorite": false,
+    "_rating": 0
+}
