@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2023-04-09T09:30:47.407Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="OsI7fdJZqpubHIH3P4A0" version="21.1.2" type="device">
+  <diagram name="Page-1" id="03018318-947c-dd8e-b7a3-06fadd420f32">
+    <mxGraphModel dx="1434" dy="1646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="i2eeIIItsMb3fOpXg1D_-1" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeColor=#000000;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;fontColor=#000000;align=center;comic=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="-760" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="i2eeIIItsMb3fOpXg1D_-2" value="&lt;font face=&quot;Comic Sans MS&quot; style=&quot;font-size: 16px;&quot;&gt;Ingredient&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="-750" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i2eeIIItsMb3fOpXg1D_-3" value="&lt;font face=&quot;Comic Sans MS&quot; style=&quot;font-size: 16px;&quot;&gt;Measure&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="-710" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i2eeIIItsMb3fOpXg1D_-5" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2gtMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0iY3VycmVudENvbG9yIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCI+PHBvbHlsaW5lIHBvaW50cz0iMyA2IDUgNiAyMSA2Ii8+PHBhdGggZD0iTTE5IDZ2MTRhMiAyIDAgMCAxLTIgMkg3YTIgMiAwIDAgMS0yLTJWNm0zIDBWNGEyIDIgMCAwIDEgMi0yaDRhMiAyIDAgMCAxIDIgMnYyIi8+PGxpbmUgeTI9IjE3IiB4Mj0iMTAiIHkxPSIxMSIgeDE9IjEwIi8+PGxpbmUgeTI9IjE3IiB4Mj0iMTQiIHkxPSIxMSIgeDE9IjE0Ii8+PC9zdmc+;" vertex="1" parent="1">
+          <mxGeometry x="208" y="-747" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="i2eeIIItsMb3fOpXg1D_-6" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJ1Y2siIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjI0IiB3aWR0aD0iMjQiPjxyZWN0IGhlaWdodD0iMTMiIHdpZHRoPSIxNSIgeT0iMyIgeD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iMTYgOCAyMCA4IDIzIDExIDIzIDE2IDE2IDE2IDE2IDgiLz48Y2lyY2xlIHI9IjIuNSIgY3k9IjE4LjUiIGN4PSI1LjUiLz48Y2lyY2xlIHI9IjIuNSIgY3k9IjE4LjUiIGN4PSIxOC41Ii8+PC9zdmc+;" vertex="1" parent="1">
+          <mxGeometry x="208" y="-707" width="24" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
